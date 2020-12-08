@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
     #конструктор
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        uic.loadUi('main_better.ui', self)
+        uic.loadUi('main.ui', self)
         self.pushButton.clicked.connect(self.even)
         self.pushButton_2.clicked.connect(self.normal)
 
