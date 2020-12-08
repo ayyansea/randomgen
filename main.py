@@ -19,6 +19,7 @@ class MainWindow(QMainWindow):
         #привязываем вызов функций к кнопкам
         self.pushButton.clicked.connect(self.even)
         self.pushButton_2.clicked.connect(self.normal)
+        self.pushButton_3.clicked.connect(self.expo)
 
     #функция, выводящая график необходимого нам распределения
     #widget - контейнер для графика, описанный в main.ui
@@ -32,7 +33,7 @@ class MainWindow(QMainWindow):
         #spinBox.value() - значение поля "Количество величин"
         self.n = self.spinBox.value()
         #x1 - координаты каждого из столбцов графика 
-        self.x1 = np.arange(self.spinBox.value())
+        self.x1 = np.arange(1, self.n)
         #убираем то, что было нарисовано ранее
         self.widget.clear()
         #заполняем массив (лист) a случайными величинами
@@ -47,19 +48,28 @@ class MainWindow(QMainWindow):
         #a, в свою очередь, является значением случайной величины
         #width - ширина каждого отдельного столбца
         #brush - цвет столбцов, 'w' - белый
-        self.bg1 = pg.BarGraphItem(x=self.x1+0.5, height=self.a, width=0.5, brush='w')
+        self.bg1 = pg.BarGraphItem(x=self.x1+0.5, height=self.a, width=1, brush='w')
         #рисуем график
         self.plot(self.bg1)
     def normal(self):
         #здесь и далее принцип такой же, как и в функции выше
         self.n = self.spinBox.value()
-        self.x1 = np.arange(self.spinBox.value())
+        self.x1 = np.arange(1, self.n)
         self.widget.clear()
         self.a = []
         for i in range(self.n):
             #normal - функция нормального распределения из файла rand.py
             #   не принимает аргументов
             self.a.append(rand.normal())
+        self.bg1 = pg.BarGraphItem(x=self.x1+0.5, height=self.a, width=1, brush='w')
+        self.plot(self.bg1)
+    def expo(self):
+        self.n = self.spinBox.value()
+        self.x1 = np.arange(1, self.n)
+        self.widget.clear()
+        self.a = []
+        for i in range(self.n):
+            self.a.append(rand.exp(10))
         self.bg1 = pg.BarGraphItem(x=self.x1+0.5, height=self.a, width=1, brush='w')
         self.plot(self.bg1)
     
