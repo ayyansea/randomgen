@@ -15,6 +15,8 @@ class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         uic.loadUi('main.ui', self)
+
+        #привязываем вызов функций к кнопкам
         self.pushButton.clicked.connect(self.even)
         self.pushButton_2.clicked.connect(self.normal)
 
