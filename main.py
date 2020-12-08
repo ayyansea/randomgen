@@ -1,29 +1,36 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtWidgets import QApplication, QMainWindow
-import matplotlib.pyplot as plt 
-import matplotlib as mpl 
-import pyqtgraph as pg
-from graph import Ui_mainWindow
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtCore import pyqtSlot
+from pyqtgraph import PlotWidget, plot
+import pyqtgraph as pg 
+import numpy as np
 import sys
+import os
 
-class myWindow(QtWidgets.QMainWindow):
+class MainWindow(QMainWindow):
 
-    def __init__(self):
-        super(myWindow, self).__init__()
-        self.ui = Ui_mainWindow()
-        self.ui.setupUi(self)
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+        uic.loadUi('main_better.ui', self)
+        self.x = [1,2,3]
+        self.y = [1,10,25]
+        self.pushButton.clicked.connect(self.on_click)
+        self.pushButton_2.clicked.connect(self.butt)
 
-        self.ui.btn1.setFont(QtGui.QFont('Montserrat', 10))
+    def plot(self, hour, temperature):
+        self.widget.plot(hour, temperature)
 
-        self.hour = [1,2,3,4,5]
-        self.temperature = [10,20,30,40,50]
+    @pyqtSlot()
+    def on_click(self):
+        self.plot(self.x, self.y)
+    def butt(self):
+        self.widget.clear()
+    
+def main():
+    app = QtWidgets.QApplication(sys.argv)
+    main = MainWindow()
+    main.show()
+    sys.exit(app.exec_())
 
-        self.ui.btn1.clicked.connect(self.doPlot(self.hour, self.temperature))
-
-    def doPlot(self, h, t):
-        graph.QtWidgets('widget')
-
-app = QtWidgets.QApplication(sys.argv)
-form = myWindow()
-form.show()
-app.exec_()
+if __name__ == '__main__':
+    main()
