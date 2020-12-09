@@ -21,6 +21,10 @@ class MainWindow(QMainWindow):
         self.pushButton_2.clicked.connect(self.normal)
         self.pushButton_3.clicked.connect(self.expo)
 
+        self.widget.getPlotItem().hideAxis('bottom')
+        #self.widget.getPlotItem().hideAxis('left')
+
+
     #функция, выводящая график необходимого нам распределения
     #widget - контейнер для графика, описанный в main.ui
     def plot(self, x):
@@ -28,6 +32,7 @@ class MainWindow(QMainWindow):
 
     #описываем действия для кнопок
     @pyqtSlot()
+
     def even(self):  
         #равномерное распределение
         #spinBox.value() - значение поля "Количество величин"
@@ -51,6 +56,7 @@ class MainWindow(QMainWindow):
         self.bg1 = pg.BarGraphItem(x=self.x1+0.5, height=self.a, width=1, brush='w')
         #рисуем график
         self.plot(self.bg1)
+
     def normal(self):
         #здесь и далее принцип такой же, как и в функции выше
         self.n = self.spinBox.value()
@@ -63,6 +69,7 @@ class MainWindow(QMainWindow):
             self.a.append(rand.normal())
         self.bg1 = pg.BarGraphItem(x=self.x1+0.5, height=self.a, width=1, brush='w')
         self.plot(self.bg1)
+
     def expo(self):
         self.n = self.spinBox.value()
         self.x1 = np.arange(1, self.n)
